@@ -1,0 +1,29 @@
+[project]
+name = "autosteer"
+version = "0.1.0"
+description = "The Feature Hunter Agent for LLM Interpretability"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "transformer-lens>=1.14.0",
+    "torch>=2.2.0",  # MPS support is stable here
+    "numpy>=1.26.0",
+    "einops>=0.7.0", # Required for tensor manipulation
+    "jaxtyping>=0.2.25", # For rigorous type checking
+    "prettytable>=3.9.0", # For clean CLI reporting
+    "marimo>=0.1.0",      # For interactive notebooks
+    "matplotlib>=3.8.0",  # For plotting
+    "scikit-learn>=1.4.0", # For PCA
+    "pandas>=2.2.0",       # For data handling
+    "transformers>=4.38.0", # Required for direct usage
+    "seaborn>=0.13.0",    # For statistical data visualization
+    "altair>=5.2.0",      # For declarative statistical visualization
+    "plotly>=5.18.0"      # For interactive graphing
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "ruff",  # Linter
+    "black"  # Formatter
+]
