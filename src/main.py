@@ -25,7 +25,7 @@ STEERING_COEFF = 5.0 # "Strength" of the injection
 class AutoSteer:
     def __init__(self):
         print(f"--> [Init] Loading {MODEL_NAME} on {DEVICE}...")
-        # Dr. Ellie Note: HookedTransformer wraps the HF model and exposes 
+        # HookedTransformer wraps the HF model and exposes 
         # internal states via string-based hooks (e.g., 'blocks.6.hook_resid_pre').
         self.model = HookedTransformer.from_pretrained(MODEL_NAME, device=DEVICE)
         self.steering_vector = None
@@ -40,8 +40,8 @@ class AutoSteer:
         _, cache = self.model.run_with_cache(texts, names_filter=[self.hook_point])
         acts = cache[self.hook_point]
 
-        # Dr. Ellie Note: We average across the sequence length (dim=1) to get a 
-        # "summary vector" for the sentence. Ideally, we would grab the *last* token
+        # Average across the sequence length (dim=1) to get a 
+        # "summary vector" for the sentence. Ideally, we would grab the last token
         # for prompt steering, but mean-pooling is more robust for general "tone".
         # acts shape: [batch, seq_len, d_model]
         return einops.reduce(acts, "batch seq d_model -> d_model", "mean")
@@ -58,7 +58,7 @@ class AutoSteer:
         # The core operation: Difference of Means
         direction = pos_mean - neg_mean
         
-        # Dr. Ellie Note: We normalize to unit length so that 'STEERING_COEFF' 
+        # normalize to unit length so that 'STEERING_COEFF' 
         # has a consistent meaning regardless of the vector's raw magnitude.
         self.steering_vector = direction / direction.norm()
         print("--> [Success] Steering vector isolated and normalized.")
