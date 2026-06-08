@@ -1,6 +1,4 @@
 """
-AutoSteer - The Feature Hunter Agent for LLM Interpretability
-Author: Dr. Ellie Vance Persona
 Description: Automates the extraction of steering vectors via Activation Addition.
 """
 
